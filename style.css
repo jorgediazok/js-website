@@ -61,6 +61,7 @@ body {
   position: relative;
   flex: 1;
   flex-basis: 25rem;
+  overflow: hidden;
 }
 
 .hero-img img {
@@ -133,6 +134,10 @@ body {
   padding: 3rem 0rem;
 }
 
+.contact {
+  flex-basis: 30rem;
+}
+
 .contact h2 {
   font-size: 3rem;
   padding: 2rem 0rem;
@@ -141,10 +146,6 @@ body {
 .contact p {
   font-size: 1.5rem;
   line-height: 2rem;
-}
-
-.contact {
-  flex-basis: 30rem;
 }
 
 .reveal-img,
