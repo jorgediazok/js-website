@@ -20,7 +20,6 @@ function animateSlides() {
     slideTl.fromTo(revealImg, { x: '0%' }, { x: '100%' });
     slideTl.fromTo(img, { scale: 2 }, { scale: 1 }, '-=1');
     slideTl.fromTo(revealText, { x: '0%' }, { x: '100%' }, '-=0.5');
-    slideTl.fromTo(nav, { y: '-100%' }, { y: '0%' }, '-=0.5');
     //Create Scene
     slideScene = new ScrollMagic.Scene({
       triggerElement: slide,
@@ -28,11 +27,10 @@ function animateSlides() {
       reverse: false,
     })
       .setTween(slideTl)
-      .addIndicators({
-        colorStart: 'white',
-        colorTrigger: 'white',
-        name: 'slide',
-      })
+      //.addIndicators({
+      // colorStart: 'white',
+      // colorTrigger: 'white',
+      //name: 'slide',});
       .addTo(controller);
     //New animation
     const pageTl = gsap.timeline();
@@ -47,16 +45,44 @@ function animateSlides() {
       duration: '100%',
       triggerHook: 0,
     })
-      .addIndicators({
-        colorStart: 'white',
-        colorTrigger: 'white',
-        name: 'page',
-        indent: 200,
-      })
+      //.addIndicators({
+      // colorStart: 'white',
+      //colorTrigger: 'white',
+      // name: 'page',
+      //  indent: 200,
+      // })
       .setPin(slide, { pushFollowers: false })
       .setTween(pageTl)
       .addTo(controller);
   });
 }
+
+const mouse = document.querySelector('.cursor');
+const mouseTxt = mouse.querySelector('span');
+const burger = document.querySelector('.burger');
+function cursor(e) {
+  mouse.style.top = e.pageY + 'px';
+  mouse.style.left = e.pageX + 'px';
+}
+
+function activeCursor(e) {
+  const item = e.target;
+  if (item.id === 'logo' || item.classList.contains('burger')) {
+    mouse.classList.add('nav-active');
+  } else {
+    mouse.classList.remove('nav-active');
+  }
+  if (item.classList.contains('explore')) {
+    mouse.classList.add('explore-active');
+    gsap.to('.title-swipe', 1, { y: '0%' });
+    mouseTxt.innerText = 'Tap';
+  } else {
+    mouse.classList.remove('explore-active');
+    mouseTxt.innerText = '';
+    gsap.to('.title-swipe', 1, { y: '100%' });
+  }
+}
+window.addEventListener('mousemove', cursor);
+window.addEventListener('mousover', activeCursor);
 
 animateSlides();
